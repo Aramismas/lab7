@@ -7,6 +7,7 @@
 #include "mult.h"
 #include "div.h"
 #include "pow.h"
+#include "factoryBase.h"
 
 int main() {
     // This is a very basic main, and being able to correctly execute this main
