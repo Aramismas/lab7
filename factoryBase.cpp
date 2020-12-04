@@ -16,6 +16,10 @@ Factory::Factory()
 
 Base* Factory::parse(char** input, int length)
 {
+ if ((length <= 1) || (!isdigit(*input[1]))) {
+      cout << "Invalid Input" << endl;
+      return nullptr;
+ }
  Base* firstval;
  Base* secondval; 
  char temp  = *input[1];
@@ -24,13 +28,8 @@ Base* Factory::parse(char** input, int length)
  char temp3;
  Base* current;
  int i = 4; 
-	if (length <= 1) {
-	    cout << "Invalid Input" << endl;
-	    return nullptr;
-	}	
 	if(isdigit(temp) )
-	{   
-
+	{
 		firstval = new Op(stod(input[1])); 
        	
 	
@@ -125,8 +124,7 @@ Base* Factory::parse(char** input, int length)
                 }	
 	     
 		}	
-	
-	
+		
 	else 
 	{
 	 cout << " Invalid input " << endl; 
