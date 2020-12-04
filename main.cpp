@@ -8,6 +8,7 @@
 #include "div.h"
 #include "pow.h"
 #include "factoryBase.h"
+
 int main(int argc, char** argv) {
     // This is a very basic main, and being able to correctly execute this main
     // does not constitute a completed lab. Make sure you write unit tests for

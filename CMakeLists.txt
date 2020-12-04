@@ -10,6 +10,7 @@ ADD_EXECUTABLE(calculator
 )
 
 ADD_EXECUTABLE(test
+   factoryBase.cpp
    unit_test.cpp
     
 )
