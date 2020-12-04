@@ -18,8 +18,9 @@ int main(int argc, char** argv) {
 
 
        Base* ptr = f->parse(argv, argc);
+	if (ptr != nullptr) {
 std::cout << ptr->stringify() << " = " << ptr->evaluate() << '\n' ; 
- 
+       }
     	
     return 0; 
 
