@@ -15,8 +15,9 @@ int main(int argc, char** argv) {
 	
        Factory* f = new Factory(); 
 
+
        Base* ptr = f->parse(argv, argc);
-	std::cout << ptr->stringify(); 
+std::cout << ptr->stringify() << " = " << ptr->evaluate() << '\n' ; 
  
     	
     return 0; 

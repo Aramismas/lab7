@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 
+
 using namespace std; 
 
 Factory::Factory()
@@ -22,7 +23,7 @@ Base* Factory::parse(char** input, int length)
  char temp2 = *input[3]; 
  char temp3;
  Base* current;
- int i = 3; 
+ int i = 4; 
 	
 	if(isdigit(temp) )
 	{
@@ -32,34 +33,47 @@ Base* Factory::parse(char** input, int length)
 	
 		 if(temp1 =='*')
 	      { 
+		 if(*input[3] == '*')
+                {
 
+                  temp3 = *input[4];
+
+                 if(isdigit(temp3))
+                {
+                  secondval = new Op(temp3 - '0');
+                  current = new Pow(firstval, secondval);
+                  i++;
+                }
+
+
+                else
+                {
+                        cout << "Invalid input " << endl;
+                        return nullptr;
+
+                }
+
+               }
+		else
+		{
+		
 		if(isdigit(temp2))
 		{
+		
 		  secondval = new Op(temp2 -'0'); 
 		  current = new Mult(firstval, secondval);
 		}
-		 if(*input[3] == '*')
-		{ 
-		  
-		  temp3 = *input[4]; 
-		 
-		 if(isdigit(temp3))
-		{
-		  secondval = new Op(temp3 - '0');
-		  current = new Pow(temp3 - '0'); 
-	     	  i++; 
-		}
 
-	
+			
 		else
 		{
-			cout << "Invalid in first " << endl;
+			cout << "Invalid input" << endl;
                         return nullptr;
 		
-		}			      
-	  
-	       }		
-	     }
+	        }
+		}
+		}
+
 		
 	 	else if(temp1 == '/')
               {
@@ -73,10 +87,11 @@ Base* Factory::parse(char** input, int length)
 
                 else
                 {
-                        cout << "Invalid in first " << endl;
+                        cout << "Invalid input" << endl;
                         return nullptr;	   
                 }	
-
+	
+	     }
 	 	else if(temp1 == '+')
             {
 		 if(isdigit(temp2))
@@ -87,9 +102,10 @@ Base* Factory::parse(char** input, int length)
 
                else
                 {
-                        cout << "Invalid in first " << endl;
+                        cout << "Invalid input  " << endl;
                         return nullptr;
 		}
+	
 	   }
 	 	else if(temp1 == '-')
               {
@@ -102,7 +118,7 @@ Base* Factory::parse(char** input, int length)
 
                 else
                 {
-                        cout << "Invalid in first " << endl;
+                        cout << "Invalid input " << endl;
                         return nullptr;
                 }	
 	     
@@ -111,68 +127,129 @@ Base* Factory::parse(char** input, int length)
 	
 	else 
 	{
-	 cout << " Invalid in first " << endl; 
-	return nullptr
+	 cout << " Invalid input " << endl; 
+	return nullptr;
 	}
 
 	Base* first = current; 
+	 
 	
-	if(length =< i) 
+	if(length <  i) 
 	{ 
 	return first; 
 	}
 	
-	for(i;  i  < length; i++) 
-	{
-		 
 	
-	}
-}
-/* 
-	 for(int j = 0; j < length; j++) 
-	{
-	 ch = *input[j]; 
-	
-	if(isdigit(ch[j]) && isdigit(ch[j + 2])) 
-	{ 
-		double value = atof(ch[j]); 
-	 	s.push(Base* val = new Op(value )); 
-	}
-	
-	else if (ch == "**") &&(lasttop == '*' && (lastop == '+' || lastop == '-')) 
-         { 
-  	   if(s.peek() == 1)
-		s.push(ch);
-	else {
-	   lastval = s.pop(); 
-	   lasttop = s.pop(); 
-	   
- 		if ((ch == '*' || ch == '/') 
-                    && (lastop == '+' || lastop == '-')) 
-		{ 
-  
-                  
-              s.push(lastop); 
-              s.push(lastval); 
-                                                         } 
-		} 
-	
-        else{
 	 	
-	switch(lastop){
-	  case '+':
-		Add* a = new Add(s.pop(), lastval); 
-		s.push(a); 
- 	
-		break; 
-	  case '-':
-	 	Sub* temp = new Sub(s.pop(), lastval); 
-		s.push(temp); 
-	  case '*':
-		Mult* m = new Mult(s.pop(), lastval); 
-		s.push(m); 
-	  case '/': 
-		Div* d = new Div(s.pop(), lastval); 
-		s.push(d)
-		}        
-           } */
+	for(i;  i  < length  ; i+= 2) 
+	{
+	   temp = *input[i];
+	   	 
+		 
+		
+	 	
+		 if(temp == '*')
+	      { 
+		  if(*input[i + 1] == '*')
+                {
+
+                  temp1 = *input[i+2];
+
+                 if(isdigit(temp1))
+                {
+                  secondval = new Op(temp1 - '0');
+                  current = new Pow(first, secondval) ;
+                  i++;
+                }
+
+		
+                else
+                {
+                        cout << "Invalid input  " << endl;
+                        return nullptr;
+
+                }
+             }
+		else
+		{
+		  
+  			
+                temp1 = *input[i + 1];
+
+                if(isdigit(temp1))
+                {
+                  secondval = new Op(temp1 -'0');
+                  current = new Mult(first, secondval);
+                }
+                else
+                {
+                        cout << "Invalid input  " << endl;
+                        return nullptr;
+
+                }
+		}
+
+	}		
+	 	else if(temp == '/')
+              {
+	       temp1 = *input[i + 1]; 
+		if(isdigit(temp1))
+                {
+                  secondval = new Op(temp1 - '0');
+
+                  current = new Div(first, secondval);
+                }
+
+                else
+                {
+                        cout << "Invalid input" << endl;
+                        return nullptr;	   
+                }	
+
+	 	}
+		else if(temp == '+')
+		{	 temp1 = *input[i + 1];
+ 
+			if(isdigit(temp1))
+                {
+                  secondval = new Op(temp1 - '0');
+                  current = new Add(first, secondval);
+                }
+		
+               else
+                {
+                        cout << "Invalid input" << endl;
+                        return nullptr;
+		}
+	      }
+	 	else if(temp == '-')
+              {		temp1 = *input[i + 1]; 
+		   if(isdigit(temp1))
+                {
+                  secondval = new Op(temp1 - '0');
+                  current = new Sub(first, secondval);
+                }
+
+
+                else
+                {
+                        cout << "Invalid input " << endl;
+                        return nullptr;
+                }	
+	     
+		}	
+	
+	
+	else 
+	{
+	 cout << " Invalid input " << endl; 
+	
+
+
+	return nullptr; 		 
+	}
+    }
+  first = current;
+}
+return current; 
+}
